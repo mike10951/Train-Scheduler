@@ -23,63 +23,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
+    <div class="container">
     <!-- header -->
-    <div id="header" class="jumbotron text-center mx-3 header">
+    <div id="header" class="jumbotron text-center header">
         <h1 class="display-4">Never be late: take train!</h1>
         <p class="lead">Updated schedule of regional and long distance trains</p>
     </div>    
     <!-- end of header -->
     <!-- schedules table -->
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="custom-border">
-                <p class="section-title">Current Train Schedule</p>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Train Name</th>
-                            <th>Destination</th>
-                            <th>Frequency (min)</th>
-                            <th>Next Arrival</th>
-                            <th>Minutes Away</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                </div>                    
+    <div class="row">
+
+        <div class="col">
+
+            <div class="card mb-4">
+            <div class="card-header">Current Train Schedule</div>
+            <div class="card-body">
+            <table class="table table-hover" id="train-table">
+                <thead>
+                    <tr>
+                        <th>Train Name</th>
+                        <th>Destination</th>
+                        <th>Frequency (min)</th>
+                        <th>Next Arrival</th>
+                        <th>Minutes Away</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
             </div>
+            </div>                    
         </div>
     </div>
     <!-- end of schedules table -->
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="custom-border">
-                <p class="section-title">Add Train</p>
+    <div class="row">
+
+        <div class="col">
+
+            <div class="card mb-4">
+            <div class="card-header">Add Train</div>
+                <div class="card-body"></div>
                 <form>
-                    <div class="form-group m-3">
-                        <label for="trainName">Train Name</label>
-                        <input type="text" class="form-control" id="trainName" placeholder="Enter the train's name">
+                    <div class="form-group mx-3">
+                        <label for="train-name">Train Name</label>
+                        <input type="text" class="form-control" id="train-name" placeholder="Enter the train's name">
                     </div>
-                    <div class="form-group m-3">
-                        <label for="trainDestination">Destination</label>
-                        <input type="text" class="form-control" id="trainDestination" placeholder="Enter the train's destination">
+                    <div class="form-group mx-3">
+                        <label for="train-destination">Destination</label>
+                        <input type="text" class="form-control" id="train-destination" placeholder="Enter the train's destination">
                     </div>
-                    <div class="form-group m-3">
-                        <label for="firstTrainTime">First Train Time (HH:mm - military time)</label>
-                        <input type="text" class="form-control" id="firstTrainTime" placeholder="Enter the train's first departure time">
+                    <div class="form-group mx-3">
+                        <label for="train-first-time">First Train Time (HH:mm - military time)</label>
+                        <input type="time" class="form-control" id="train-first-time" placeholder="Enter the train's first departure time">
                     </div>
-                    <div class="form-group m-3">
-                        <label for="trainFrequency">Frequency (min)</label>
-                        <input type="text" class="form-control" id="trainFrequency" placeholder="Enter the train's frequency">
+                    <div class="form-group mx-3">
+                        <label for="train-frequency">Frequency (min)</label>
+                        <input type="number" class="form-control" id="train-frequency" placeholder="Enter the train's frequency">
                     </div>
-                    <button type="button" class="btn btn-primary m-3">Submit</button>                    
-                </form>                
-                </div>
+                    <button type="button" id="train-add-btn" class="btn btn-primary m-3">Submit</button>                    
+                </form> 
+            </div>               
             </div>
         </div>
+    </div>
     </div>
     <!-- add train section -->
     
