@@ -21,26 +21,16 @@ $("#train-add-btn").on("click", function(evt) {
     //Grab user input
     var trainName = $("#train-name").val().trim();
     var trainDestination = $("#train-destination").val().trim();
-    var firstTrainTime = moment($("#train-first-time").val(), 'HH:mm');
-    
-    //Calculate next train departure hour
+    var firstTrainTime = $("#train-first-time").val();
     var trainFrequency = $("#train-frequency").val();
-        do {
-        firstTrainTime.add(trainFrequency, 'minutes');
-        } while (moment().isSameOrBefore(firstTrainTime) === false);
-    var nextTrain = firstTrainTime.format("HH:mm");
-
-    // Calculate minutes remaining until next train
-    var difference = firstTrainTime.diff(moment(), 'minutes');
-
+    
     //Local object for holding data
     var newTrain = {
         name: trainName,
         destination: trainDestination,
         frequency: trainFrequency,
-        nextTrain: nextTrain,
-        minutesRemaining: difference
-    };
+        firstTrainOfDay: firstTrainTime
+      };
 
     //Uploads train data to the database
     database.ref().push(newTrain);
@@ -57,15 +47,28 @@ database.ref().on("child_added", function(childSnapshot) {
     // Log everything that's coming out of snapshot
     console.log(childSnapshot.val().name);
     console.log(childSnapshot.val().destination);
-    console.log(childSnapshot.val().nextTrain);
-    console.log(childSnapshot.val().minutesRemaining);
+
+    var firstTrainTime = moment(childSnapshot.val().firstTrainOfDay, 'HH:mm');
+    var trainFrequency = childSnapshot.val().frequency;
+    console.log(firstTrainTime);
+
+      //Calculate next train departure hour
+      do {
+      firstTrainTime.add(trainFrequency, 'minutes');
+      } while (moment().isSameOrBefore(firstTrainTime) === false);
+      var nextTrain = firstTrainTime.format("HH:mm");
+  
+      // Calculate minutes remaining until next train
+      var difference = firstTrainTime.diff(moment(), 'minutes');
+  
+    
 
     $("#train-table tbody").append("<tr class='train'><td class='train-name'> " +
       childSnapshot.val().name +
       " </td><td class='train-destination'> " + childSnapshot.val().destination +
       " </td><td class='train-frequency'> " + childSnapshot.val().frequency +
-      " </td><td class='next-train'> " + childSnapshot.val().nextTrain +
-      " </td><td class='minutes-remaining'> " + childSnapshot.val().minutesRemaining +
+      " </td><td class='next-train'> " + nextTrain +
+      " </td><td class='minutes-remaining'> " + difference +
       " </td></tr>");
 
     // Handle the errors
